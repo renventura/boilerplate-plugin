@@ -14,10 +14,20 @@ var jsCustomDestination     = './assets/js/'; // Path to place the compiled JS c
 var jsCustomFile            = 'custom'; // Compiled JS custom file name.
 // Default set to custom i.e. custom.js.
 
+// Translation related.
+var text_domain             = '%TEXT_DOMAIN%'; // Your textdomain here.
+var translationFile         = '%PLUGIN_KEY%.pot'; // Name of the transalation file.
+var translationDestination  = './languages'; // Where to save the translation files.
+var packageName             = '%PLUGIN_KEY%'; // Package name.
+var bugReport               = '%AUTHOR_URI%'; // Where can users report bugs.
+var lastTranslator          = '%PLUGIN_AUTHOR% <%AUTHOR_EMAIL%>'; // Last translator Email ID.
+var team                    = '%PLUGIN_AUTHOR% <%AUTHOR_EMAIL%>'; // Team's Email ID.
+
+// Files to watch
 var stylesWatchFiles        = './assets/css/sass/partials/*.scss'; // Path to all Sass partials.
 var vendorsJSWatchFiles     = './assets/js/vendor/*.js'; // Path to all vendor JS files.
 var customJSWatchFiles      = './assets/js/custom/*.js'; // Path to all custom JS files.
-
+var projectPHPWatchFiles    = './**/*.php'; // Path to all PHP files.
 
 /**
  * Load Plugins.
@@ -38,6 +48,8 @@ var uglify       = require('gulp-uglify'); // Minifies JS files
 var rename       = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css
 var lineec       = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
 var notify       = require('gulp-notify'); // Sends message notification to you
+var wpPot        = require('gulp-wp-pot'); // For generating the .pot file.
+var sort         = require('gulp-sort'); // Recommended to prevent unnecessary changes in pot-file.
 
 
 // Browsers you care about for autoprefixing.
@@ -132,6 +144,31 @@ gulp.task( 'customJS', function() {
    .pipe( gulp.dest( jsCustomDestination ) )
    .pipe( notify( { message: 'TASK: "customJs" Completed! 💯', onLast: true } ) );
 });
+
+
+/**
+ * WP POT Translation File Generator.
+ *
+ * * This task does the following:
+ *     1. Gets the source of all the PHP files
+ *     2. Sort files in stream by path or any custom sort comparator
+ *     3. Applies wpPot with the variable set at the top of this file
+ *     4. Generate a .pot file of i18n that can be used for l10n to build .mo file
+ */
+gulp.task( 'pot', function () {
+    return gulp.src( projectPHPWatchFiles )
+        .pipe(sort())
+        .pipe(wpPot( {
+            domain        : text_domain,
+            package       : packageName,
+            bugReport     : bugReport,
+            lastTranslator: lastTranslator,
+            team          : team
+        } ))
+       .pipe(gulp.dest(translationDestination + '/' + translationFile ))
+       .pipe( notify( { message: 'TASK: "pot" Completed! 💯', onLast: true } ) )
+});
+
 
 /**
  * Watch Tasks.
