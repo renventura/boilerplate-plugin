@@ -7,3 +7,4 @@ node_modules		export-ignore
 assets/js/custom	export-ignore
 assets/js/vendors	export-ignore
 assets/css/sass		export-ignore
+assets/images/raw	export-ignore

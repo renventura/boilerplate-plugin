@@ -14,7 +14,7 @@ var jsCustomDestination     = './assets/js/'; // Path to place the compiled JS c
 var jsCustomFile            = 'custom'; // Compiled JS custom file name.
 // Default set to custom i.e. custom.js.
 
-var stylesWatchFiles        = './assets/css/sass/*.scss'; // Path to all vendor JS files.
+var stylesWatchFiles        = './assets/css/sass/partials/*.scss'; // Path to all Sass partials.
 var vendorsJSWatchFiles     = './assets/js/vendor/*.js'; // Path to all vendor JS files.
 var customJSWatchFiles      = './assets/js/custom/*.js'; // Path to all custom JS files.
 
