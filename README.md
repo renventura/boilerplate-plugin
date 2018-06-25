@@ -30,6 +30,7 @@ This boilerplate can also be used manually by doing a find-and-replace for the b
 %AUTHOR_EMAIL% - Email of the author; used in copyright and license text
 %AUTHOR_NAMESPACE% - Not currently used anywhere
 %GIT_REPO_URI% - Used in package.json
+%GIT_ORIGIN_URI% - Used to add the remote via `git remote add origin ...`
 %TEXT_DOMAIN% - Text domain for translations
 %YEAR% - Current year; used in copyright and license text
 ```
