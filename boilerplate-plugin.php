@@ -75,11 +75,6 @@ class %PLUGIN_NAMESPACE% {
 			define( '%PLUGIN_CONSTANT_PREFIX%_VERSION', '0.1.0' );
 		}
 
-		// Text domain
-		if ( ! defined( '%PLUGIN_CONSTANT_PREFIX%_PLUGIN_TEXT_DOMAIN' ) ) {
-			define( '%PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN', '%TEXT_DOMAIN%' );
-		}
-
 		// Plugin file
 		if ( ! defined( '%PLUGIN_CONSTANT_PREFIX%_PLUGIN_FILE' ) ) {
 			define( '%PLUGIN_CONSTANT_PREFIX%_PLUGIN_FILE', __FILE__ );
@@ -138,12 +133,12 @@ class %PLUGIN_NAMESPACE% {
 	public function loaded() {
 
 		$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
-		$locale = apply_filters( 'plugin_locale', $locale, %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN );
+		$locale = apply_filters( 'plugin_locale', $locale, '%TEXT_DOMAIN%' );
 		
-		unload_textdomain( %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN );
+		unload_textdomain( '%TEXT_DOMAIN%' );
 		
-		load_textdomain( %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN, WP_LANG_DIR . '/%PLUGIN_KEY%/%PLUGIN_KEY%-' . $locale . '.mo' );
-		load_plugin_textdomain( %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN, false, dirname( %PLUGIN_CONSTANT_PREFIX%_PLUGIN_BASENAME ) . '/languages' );
+		load_textdomain( '%TEXT_DOMAIN%', WP_LANG_DIR . '/%PLUGIN_KEY%/%PLUGIN_KEY%-' . $locale . '.mo' );
+		load_plugin_textdomain( '%TEXT_DOMAIN%', false, dirname( %PLUGIN_CONSTANT_PREFIX%_PLUGIN_BASENAME ) . '/languages' );
 	}
 
 	/**
@@ -155,7 +150,7 @@ class %PLUGIN_NAMESPACE% {
 	 */
 	public function action_links( $links ) {
 
-		$links[] = sprintf( '<a href="%s" aria-label="%s">%s</a>', '#', __( 'Link Text', %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN ), __( 'Link Text', %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN ) );
+		$links[] = sprintf( '<a href="%s" aria-label="%s">%s</a>', '#', __( 'Link Text', '%TEXT_DOMAIN%' ), __( 'Link Text', '%TEXT_DOMAIN%' ) );
 
 		return $links;
 	}
@@ -171,7 +166,7 @@ class %PLUGIN_NAMESPACE% {
 	public function plugin_row_links( $links, $file ) {
 
 		if ( $file == %PLUGIN_CONSTANT_PREFIX%_PLUGIN_BASENAME ) {
-			$links[] = sprintf( '<a href="%s" aria-label="%s">%s</a>', '#', __( 'Link Text', %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN ), __( 'Link Text', %PLUGIN_CONSTANT_PREFIX%_TEXT_DOMAIN ) );
+			$links[] = sprintf( '<a href="%s" aria-label="%s">%s</a>', '#', __( 'Link Text', '%TEXT_DOMAIN%' ), __( 'Link Text', '%TEXT_DOMAIN%' ) );
 		}
 
 		return $links;
