@@ -45,6 +45,7 @@ var uglify       = require('gulp-uglify'); // Minifies JS files
 
 
 // Utility related plugins.
+var replace      = require('gulp-replace'); // Search and replace text
 var rename       = require('gulp-rename'); // Renames files E.g. style.css -> style.min.css
 var lineec       = require('gulp-line-ending-corrector'); // Consistent Line Endings for non UNIX systems. Gulp Plugin for Line Ending Corrector (A utility that makes sure your files have consistent line endings)
 var notify       = require('gulp-notify'); // Sends message notification to you
@@ -71,7 +72,7 @@ const AUTOPREFIXER_BROWSERS = [
  *    4. Renames the CSS file with suffix .min.css
  *    5. Minifies the CSS file and generates .min.css
  */
-gulp.task('styles', function() {
+gulp.task( 'styles', function() {
   gulp.src( styleSRC )
   .pipe( sass( {
     errLogToConsole: true,
@@ -152,20 +153,22 @@ gulp.task( 'customJS', function() {
  * * This task does the following:
  *     1. Gets the source of all the PHP files
  *     2. Sort files in stream by path or any custom sort comparator
- *     3. Applies wpPot with the variable set at the top of this file
- *     4. Generate a .pot file of i18n that can be used for l10n to build .mo file
+ *     3. Search and replace the placeholder text for the text domain
+ *     4. Applies wpPot with the variable set at the top of this file
+ *     5. Generate a .pot file of i18n that can be used for l10n to build .mo file
  */
 gulp.task( 'pot', function () {
     return gulp.src( projectPHPWatchFiles )
-        .pipe(sort())
-        .pipe(wpPot( {
+        .pipe( sort() )
+        .pipe( replace( 'tdomain', text_domain ) )
+        .pipe( wpPot( {
             domain        : text_domain,
             package       : packageName,
             bugReport     : bugReport,
             lastTranslator: lastTranslator,
             team          : team
-        } ))
-       .pipe(gulp.dest(translationDestination + '/' + translationFile ))
+        } ) )
+       .pipe( gulp.dest(translationDestination + '/' + translationFile ) )
        .pipe( notify( { message: 'TASK: "pot" Completed! 💯', onLast: true } ) )
 });
 
