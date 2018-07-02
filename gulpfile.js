@@ -152,24 +152,25 @@ gulp.task( 'customJS', function() {
  *
  * * This task does the following:
  *     1. Gets the source of all the PHP files
- *     2. Sort files in stream by path or any custom sort comparator
- *     3. Search and replace the placeholder text for the text domain
+ *     2. Search and replace the placeholder text for the text domain
+ *     3. Sort files in stream by path or any custom sort comparator
  *     4. Applies wpPot with the variable set at the top of this file
  *     5. Generate a .pot file of i18n that can be used for l10n to build .mo file
  */
-gulp.task( 'pot', function () {
-    return gulp.src( projectPHPWatchFiles )
-        .pipe( sort() )
-        .pipe( replace( 'tdomain', text_domain ) )
-        .pipe( wpPot( {
-            domain        : text_domain,
-            package       : packageName,
-            bugReport     : bugReport,
-            lastTranslator: lastTranslator,
-            team          : team
-        } ) )
-       .pipe( gulp.dest(translationDestination + '/' + translationFile ) )
-       .pipe( notify( { message: 'TASK: "pot" Completed! 💯', onLast: true } ) )
+gulp.task('pot', function () {
+  return gulp.src(projectPHPWatchFiles)
+    .pipe( replace( 'tdomain', text_domain ) )
+    .pipe( gulp.dest("./") )
+    .pipe( sort() )
+    .pipe( wpPot( {
+      domain: text_domain,
+      package: packageName,
+      bugReport: bugReport,
+      lastTranslator: lastTranslator,
+      team: team
+    } ) )
+    .pipe( gulp.dest(translationDestination + '/' + translationFile) )
+    .pipe( notify({ message: 'TASK: "pot" Completed! 💯', onLast: true }) )
 });
 
 
