@@ -191,7 +191,7 @@ gulp.task('customJS', function () {
  */
 gulp.task('pot', function () {
   return gulp.src(projectPHPWatchFiles)
-    .pipe(replace('tdomain', text_domain))
+    .pipe( replace( /(?<="|')(tdomain)(?="|')/g, text_domain ) )
     .pipe(gulp.dest("./"))
     .pipe(sort())
     .pipe(wpPot({
