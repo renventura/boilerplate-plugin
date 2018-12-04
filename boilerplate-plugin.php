@@ -117,9 +117,9 @@ class %PLUGIN_NAMESPACE% {
 
 		add_action( 'plugins_loaded', array( $this, 'loaded' ) );
 
-		// add_filter( 'plugin_action_links_' . %PLUGIN_CONSTANT_PREFIX%_PLUGIN_BASENAME, array( $this, 'action_links' ) );
-		
-		// add_filter( 'plugin_row_meta', array( $this, 'plugin_row_links' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_links' ), 10, 2 );
+
+		// add_filter( 'plugin_action_links_' . %PLUGIN_CONSTANT_PREFIX%_PLUGIN_BASENAME, array( $this, 'action_links' ) );		
 	}
 
 	/**
@@ -161,12 +161,12 @@ class %PLUGIN_NAMESPACE% {
 	 * @param  array 	$links 	Current links
 	 * @param  string 	$file  	Plugin basename
 	 *
-	 * @return array        New links
+	 * @return array        	New links
 	 */
 	public function plugin_row_links( $links, $file ) {
 
-		if ( $file == %PLUGIN_CONSTANT_PREFIX%_PLUGIN_BASENAME ) {
-			$links[] = sprintf( '<a href="%s" aria-label="%s">%s</a>', '#', __( 'Link Text', '%TEXT_DOMAIN%' ), __( 'Link Text', '%TEXT_DOMAIN%' ) );
+		if ( $file == plugin_basename( __FILE__ ) ) {
+			$links[] = sprintf( '<a href="%s" target="_blank">%s</a>', 'https://app.codeable.io/tasks/new?preferredContractor=43799', 'Hire Ren on Codeable' );
 		}
 
 		return $links;

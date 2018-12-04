@@ -1,7 +1,4 @@
 **.DS_Store*
-ehthumbs.db
-Icon?
-Thumbs.db
 ._*
 node_modules
 **/.sass-cache
