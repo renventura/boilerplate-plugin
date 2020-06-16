@@ -72,7 +72,7 @@ class %PLUGIN_NAMESPACE% {
 
 		// Plugin version
 		if ( ! defined( '%PLUGIN_CONSTANT_PREFIX%_PLUGIN_VERSION' ) ) {
-			define( '%PLUGIN_CONSTANT_PREFIX%_VERSION', '0.1.0' );
+			define( '%PLUGIN_CONSTANT_PREFIX%_PLUGIN_VERSION', '0.1.0' );
 		}
 
 		// Plugin file
